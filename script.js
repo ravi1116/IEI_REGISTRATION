@@ -68,7 +68,8 @@ document.getElementById("eventForm").addEventListener("submit", async function(e
       timestamp: new Date()
     });
 
-    showMessage("🎉 Registration confirmed! , join the group https://chat.whatsapp.com/CbcwCDG529b6qaCqbu4wi5?mode=ems_wa_t ", "success");
+    const successMessage = `🎉 Registration confirmed! <a href="https://chat.whatsapp.com/CbcwCDG529b6qaCqbu4wi5?mode=ems_wa_t" target="_blank">Click here to join the WhatsApp group.</a>`;
+showMessage(successMessage, "success");
     document.getElementById("eventForm").reset();
     document.getElementById("qrcode").innerHTML = "";
     document.getElementById("paymentSection").style.display = "none";
@@ -82,8 +83,8 @@ document.getElementById("eventForm").addEventListener("submit", async function(e
 
 // Helper: Show message
 function showMessage(msg, type) {
-  const box = document.getElementById("message");
-  box.style.display = "block";
-  box.className = "message " + type;
-  box.innerText = msg;
+  const box = document.getElementById("message");
+  box.style.display = "block";
+  box.className = "message " + type;
+  box.innerHTML = msg; // This will render HTML
 }
