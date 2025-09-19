@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Event Registration</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 500px; margin: 30px auto; }
+    h2 { text-align: center; }
+    form { padding: 15px; border: 1px solid #ddd; border-radius: 8px; }
+    input, button { margin: 8px 0; padding: 8px; width: 100%; }
+    button { background: #007bff; color: white; border: none; cursor: pointer; }
+    button:hover { background: #0056b3; }
+    .message { margin-top: 15px; padding: 10px; border-radius: 6px; display: none; }
+    .success { background: #d4edda; color: #155724; }
+    .error { background: #f8d7da; color: #721c24; }
+    #qrcode { margin-top: 20px; text-align: center; }
+  </style>
+</head>
+<body>
+  <h2>Event Registration</h2>
+
+  <form id="eventForm">
+    <input type="text" id="name" placeholder="Your Name" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="tel" id="phone" placeholder="Phone" required>
+
+    <label><input type="checkbox" name="event" value="TECH QUIZ"> TECH QUIZ </label><br>
+    <label><input type="checkbox" name="event" value="CODE CRACKER"> CODE CRAKER</label><br>
+    <label><input type="checkbox" name="event" value="POSTER SHOWCASE"> POSTER SHOWCASE</label><br>
+    <label><input type="checkbox" name="event" value="CAPTURE YOURSELF"> CAPTURE YOURSELF</label><br>
+
+    <button type="submit">Register & Pay</button>
+  </form>
+
+  <h3 id="amount"></h3>
+  <div id="qrcode"></div>
+  <div id="message" class="message"></div>
+
+  <script>
+    // Replace with your deployed Apps Script Web App URL
+    const SHEET_URL = "https://script.google.com/macros/s/AKfycbzvMOJiY6qRQBNCpaoPqaU5HNUR-wgrPrTuPdbeOlToymtc-R9HvtYh_2ICaSAMRfKK/exec";
+
+    document.getElementById('eventForm').addEventListener('submit', async function(e){
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
+      const events = [...document.querySelectorAll('input[name="event"]:checked')].map(e => e.value);
+
+      const count = events.length;
+      if(count === 0){
+        showMessage("❌ Please select at least one event.", "error");
+        return;
+      }
+
+      let amount = (count === 4) ? 1 : count * 0.50;
+      document.getElementById("amount").innerText = "Total Amount: ₹" + amount;
+
+      // Generate UPI QR
+      const upiLink = `upi://pay?pa=ashendokar774@okicici&pn=Organizer&am=${amount}&cu=INR`;
+      document.getElementById("qrcode").innerHTML = "";
+      QRCode.toCanvas(document.createElement("canvas"), upiLink, (err, canvas) => {
+        if (!err) document.getElementById("qrcode").appendChild(canvas);
+      });
+
+      // Save to Google Sheet
+      const data = {name, email, phone, events: events.join(", "), amount};
+
+      try {
+        let res = await fetch(SHEET_URL, {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {"Content-Type": "application/json"}
+        });
+        let result = await res.json();
+
+        if(result.status === "success"){
+          showMessage("✅ Registration successful! Please scan the QR to pay.", "success");
+        } else {
+          showMessage("❌ Error: " + result.message, "error");
+        }
+      } catch (err) {
+        showMessage("⚠️ Failed to connect to server: " + err.message, "error");
+      }
+    });
+
+    function showMessage(msg, type){
+      const box = document.getElementById("message");
+      box.style.display = "block";
+      box.className = "message " + type;
+      box.innerText = msg;
+    }
+  </script>
+</body>
+</html>
