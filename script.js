@@ -68,7 +68,7 @@ document.getElementById("eventForm").addEventListener("submit", async function(e
       timestamp: new Date()
     });
 
-    showMessage("🎉 Registration confirmed! Data saved to Firebase.", "success");
+    showMessage("🎉 Registration confirmed! , join the group https://chat.whatsapp.com/CbcwCDG529b6qaCqbu4wi5?mode=ems_wa_t ", "success");
     document.getElementById("eventForm").reset();
     document.getElementById("qrcode").innerHTML = "";
     document.getElementById("paymentSection").style.display = "none";
