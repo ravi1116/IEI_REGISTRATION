@@ -12,9 +12,6 @@
 </head>
 <body>
 
-  
-  </div>
-
   <div class="container">
     <header class="page-header">
       <div class="logos">
@@ -32,7 +29,7 @@
       <input type="text" id="college" placeholder="College Name" required>
       <input type="text" id="branch" placeholder="Branch" required>
       <input type="text" id="year" placeholder="Year of Study" required>
-      <input type="text" id="class & rollno" placeholder="class & rollno" required>
+      <input type="text" id="classRollno" placeholder="Class & Roll No" required>
       <input type="email" id="email" placeholder="Email" required>
       <input type="tel" id="phone" placeholder="Phone" required>
 
@@ -44,7 +41,6 @@
           <label><input type="checkbox" name="event" value="CAPTURE YOURSELF"><span>CAPTURE YOURSELF</span></label>
       </fieldset>
 
-      <!-- New Live Amount Display -->
       <div id="liveAmountContainer" style="display: none;">
         <h3>Total Amount: <span id="liveAmount">₹0</span></h3>
       </div>
@@ -62,30 +58,6 @@
     <div id="message" class="message"></div>
   </div>
 
-  <!-- Firebase SDK -->
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyBmv-jjCpdh-x5AGKSD3PQv7m1SnPEgV5A",
-    authDomain: "iei-event-regestration.firebaseapp.com",
-    projectId: "iei-event-regestration",
-    storageBucket: "iei-event-regestration.firebasestorage.app",
-    messagingSenderId: "449870515537",
-    appId: "1:449870515537:web:a3efbf43237815753c5770",
-    measurementId: "G-RT4FZNS7D7"
-  };
-    const app = initializeApp(firebaseConfig);
-    window.db = getFirestore(app);
-  </script>
-
   <script src="script.js" type="module"></script>
 </body>
 </html>
-
