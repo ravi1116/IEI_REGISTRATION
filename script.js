@@ -1,5 +1,5 @@
 // Your unique Google Apps Script Web App URL is now included.
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxtxbLa6uQcsKeoEvcjOtDLMsOOwW5zUEHivePgIulVRUY2ECP-0-ONH1Lp_LiyQzwf_w/exec";
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxtxbLa6uQcsKeoEvcjOtDLMsOOwW5zUEHivePgIulVRUY2ECP-0-ONH1Lp_LiyQzwf_w/exec';
 
 let cachedData = {}; // temporary storage for form data
 
