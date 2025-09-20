@@ -17,7 +17,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
+const analytics = getAnalytics(app);
 console.log('Firebase Initialized with Firestore');
 
 let cachedData = {}; // temporary storage for form data
